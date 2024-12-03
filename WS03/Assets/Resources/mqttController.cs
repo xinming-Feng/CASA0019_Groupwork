@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
-using XCharts.Runtime;
-using TMPro;
-using UnityEngine.UI;
-using System.Collections;
 
+using UnityEngine;
 public class mqttController : MonoBehaviour
 {
     [Tooltip("Optional name for the controller")]
@@ -17,30 +12,34 @@ public class mqttController : MonoBehaviour
     private float pointerValue = 0.0f;
     [Space]
     [Space]
+    public GameObject objectToControl; //pointer of the gauge, or other 3D models
+    [Tooltip("Select the rotation axis of the object to control")]
+    public enum State { X, Y, Z };
+    public State rotationAxis;
+    [Space]
+    [Tooltip("Direction Rotation")]
+    public bool CW = true; //CW True = 1; CW False = -1
+    private int rotationDirection = 1;
+    [Space]
+    [Space]
+    [Tooltip("minimum value on the dial")]
+    public float startValue = 30f; //start value of the gauge
+    [Tooltip("maximum value on the dial")]
+    public float endValue = 130f; // end value of the gauge
+    [Tooltip("full extension of the gauge in EulerAngles")]
+    public float fullAngle = 180f; // full extension of the gauge in EulerAngles
 
-    public RingChart ringChart;
+    [Tooltip("Adjust the origin of the scale. negative values CCW; positive value CW")]
+    public float adjustedStart = 0f; // negative values CCW; positive value CW
+    [Space]
     public mqttManager _eventSender;
-    public TextMeshProUGUI deviceName;
-    public TextMeshProUGUI todayEnergy;
-    public TextMeshProUGUI yesterdayEnergy;
-    public TextMeshProUGUI totalEnergy;
-    public TextMeshProUGUI since;
-    public Image toggle;
-    public Color color1 = new Color(0, 1, 0); // Bright Green
-    public Color color2 = new Color(0, 0.5f, 0); // Darker Green
-    public float blinkDuration = 1.0f; // Duration of one blink cycle
-    public int blinkCount = 3; // Number of blinks
-
 
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag(tag_mqttManager).Length > 0)
         {
             _eventSender = GameObject.FindGameObjectsWithTag(tag_mqttManager)[0].gameObject.GetComponent<mqttManager>();
-            if (!_eventSender.isConnected)
-            {
-                _eventSender.Connect(); //Connect tha Manager when the object is spawned
-            }
+            _eventSender.Connect(); //Connect tha Manager when the object is spawned
         }
         else
         {
@@ -61,56 +60,56 @@ public class mqttController : MonoBehaviour
 
     private void OnMessageArrivedHandler(mqttObj mqttObject) //the mqttObj is defined in the mqttManager.cs
     {
-        //https://github.com/XCharts-Team/XCharts/blob/master/Documentation~/en/configuration.md#labelstyle
-        ringChart.series[0].label.formatter = "{c:f0}W";
-
         //We need to check the topic of the message to know where to use it 
         if (mqttObject.topic.Contains(topicSubscribed))
         {
-            StartCoroutine(Blink());
             var response = JsonUtility.FromJson<tasmotaSensor.Root>(mqttObject.msg);
-            List<double> values = new List<double>
-            {
-                response.ENERGY.Power,
-                1000
 
-            };
-            ringChart.UpdateData(0, 0, values);
-
-            todayEnergy.text = "Today: " + response.ENERGY.Today.ToString() + "kWh";
-            yesterdayEnergy.text = "Yesterday: " + response.ENERGY.Yesterday.ToString() + "kWh";
-            totalEnergy.text = "Total: " + response.ENERGY.Total.ToString() + "kWh";
-
-            since.text = response.ENERGY.TotalStartTime;
-
+            pointerValue = response.soundLevel;
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
         }
     }
 
-    IEnumerator Blink()
+    private void Update()
     {
-        for (int i = 0; i < blinkCount; i++)
-        {
-            // Lerp from color1 to color2
-            float elapsedTime = 0f;
-            while (elapsedTime < blinkDuration)
-            {
-                toggle.color = Color.Lerp(color1, color2, elapsedTime / blinkDuration);
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
+        float step = 1.5f * Time.deltaTime;
+        // ternary conditional operator https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
+        rotationDirection = CW ? 1 : -1;
 
-            // Lerp from color2 to color1
-            elapsedTime = 0f;
-            while (elapsedTime < blinkDuration)
+        if (pointerValue >= startValue)
+        {
+            Vector3 rotationVector = new Vector3();
+            //If the rotation Axis is X
+            if (rotationAxis == State.X)
             {
-                toggle.color = Color.Lerp(color2, color1, elapsedTime / blinkDuration);
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                rotationVector = new Vector3(
+                (rotationDirection * ((pointerValue - startValue) * (fullAngle / (endValue - startValue)))) - adjustedStart,
+                objectToControl.transform.localEulerAngles.y,
+                objectToControl.transform.localEulerAngles.z);
             }
+            //If the rotation Axis is Y
+            else if (rotationAxis == State.Y)
+            {
+                rotationVector = new Vector3(
+                objectToControl.transform.localEulerAngles.x,
+                (rotationDirection * ((pointerValue - startValue) * (fullAngle / (endValue - startValue)))) - adjustedStart,
+                objectToControl.transform.localEulerAngles.z);
+
+            }
+            //If the rotation Axis is Z
+            else if (rotationAxis == State.Z)
+            {
+                rotationVector = new Vector3(
+                objectToControl.transform.localEulerAngles.x,
+                objectToControl.transform.localEulerAngles.y,
+                (rotationDirection * ((pointerValue - startValue) * (fullAngle / (endValue - startValue)))) - adjustedStart);
+            }
+            objectToControl.transform.localRotation = Quaternion.Lerp(
+                    objectToControl.transform.localRotation,
+                    Quaternion.Euler(rotationVector),
+                    step);
         }
     }
-
 }
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
@@ -118,24 +117,10 @@ public class mqttController : MonoBehaviour
 public class tasmotaSensor
 {
     [Serializable]
-    public class ENERGY
-    {
-        public string TotalStartTime;
-        public double Total;
-        public double Yesterday;
-        public double Today;
-        public int Period;
-        public int Power;
-        public int ApparentPower;
-        public int ReactivePower;
-        public double Factor;
-        public int Voltage;
-        public double Current;
-    }
-    [Serializable]
+
     public class Root
     {
         public DateTime Time;
-        public ENERGY ENERGY;
+        public int soundLevel;
     }
 }
