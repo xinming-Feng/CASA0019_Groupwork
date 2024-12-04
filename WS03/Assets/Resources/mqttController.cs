@@ -34,6 +34,11 @@ public class mqttController : MonoBehaviour
     [Space]
     public mqttManager _eventSender;
 
+    public LineChartUpdater timedomain;
+
+    public int[] timeSerie = {0};
+    
+
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag(tag_mqttManager).Length > 0)
@@ -50,6 +55,7 @@ public class mqttController : MonoBehaviour
     void OnEnable()
     {
         _eventSender.OnMessageArrived += OnMessageArrivedHandler;
+    
 
     }
 
@@ -67,6 +73,12 @@ public class mqttController : MonoBehaviour
 
             pointerValue = response.soundLevel;
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
+            Array.Resize(ref timeSerie,timeSerie.Length+1);
+            timeSerie[timeSerie.Length-1] = response.soundLevel;
+
+
+            timedomain = FindObjectOfType<LineChartUpdater>();
+            timedomain.UpdateData(timeSerie);
         }
     }
 
