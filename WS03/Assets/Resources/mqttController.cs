@@ -36,7 +36,9 @@ public class mqttController : MonoBehaviour
 
     public LineChartUpdater timedomain;
 
-    public int[] timeSerie = {0};
+   
+
+    public List<int> timeSerie = new List<int>();
     
 
     void Awake()
@@ -70,15 +72,20 @@ public class mqttController : MonoBehaviour
         if (mqttObject.topic.Contains(topicSubscribed))
         {
             var response = JsonUtility.FromJson<tasmotaSensor.Root>(mqttObject.msg);
+            
+            double db = 20*Math.Log10(response.soundLevel);
 
-            pointerValue = response.soundLevel;
+            pointerValue = (float) db;
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
-            Array.Resize(ref timeSerie,timeSerie.Length+1);
-            timeSerie[timeSerie.Length-1] = response.soundLevel;
+            if (timeSerie.Count > 10){
+                timeSerie.RemoveAt(0);
+            }
+            timeSerie.Add(response.soundLevel);
 
 
             timedomain = FindObjectOfType<LineChartUpdater>();
-            timedomain.UpdateData(timeSerie);
+            timedomain.UpdateData(timeSerie.ToArray());
+           
         }
     }
 
