@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MathNet.Numerics.IntegralTransforms;
 using NumericsComplex = System.Numerics.Complex;
+using XCharts.Runtime;
 
 public class mqttController : MonoBehaviour
 {
@@ -37,13 +38,13 @@ public class mqttController : MonoBehaviour
     [Space]
     public mqttManager _eventSender;
 
-    public LineChartUpdater timedomain;
-
-   
-
-    public List<int> timeSerie = new List<int>();
+    public LineChartUpdater timeDomain;
 
     public BarChartUpdater barChartUpdater;
+
+    public DynamicBar dynamicBar;
+
+    public List<int> timeSerie = new List<int>();
     
 
     void Awake()
@@ -62,10 +63,8 @@ public class mqttController : MonoBehaviour
     void OnEnable()
     {
         _eventSender.OnMessageArrived += OnMessageArrivedHandler;
-        timedomain = FindObjectOfType<LineChartUpdater>();
-        barChartUpdater = FindObjectOfType<BarChartUpdater>();
-    
-
+        timeDomain = FindObjectOfType<LineChartUpdater>();
+        dynamicBar = FindObjectOfType<DynamicBar>();
     }
 
     private void OnDisable()
@@ -80,17 +79,24 @@ public class mqttController : MonoBehaviour
         {
             var response = JsonUtility.FromJson<tasmotaSensor.Root>(mqttObject.msg);
             
-            double db = 20*Math.Log10(response.soundLevel);
+            // double db = 20*Math.Log10(response.soundLevel);
+            int db = Map(response.soundLevel, 0, 1023, 30, 130);
+
+            // Helper function for mapping
+            int Map(int value, int fromLow, int fromHigh, int toLow, int toHigh)
+            {
+                return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+            }
 
             pointerValue = (float) db;
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
+            timeDomain.AppendData(response.soundLevel);
+            dynamicBar.UpdateBar(pointerValue);
+
             if (timeSerie.Count >= 10){
                 timeSerie.RemoveAt(0);
             }
             timeSerie.Add(response.soundLevel);
-        
-            timedomain.UpdateData(timeSerie.ToArray());
-            barChartUpdater.UpdateChart(db);
 
             NumericsComplex[] complexes = new NumericsComplex[timeSerie.Count];
             for (int i = 0; i < complexes.Length; i++){
