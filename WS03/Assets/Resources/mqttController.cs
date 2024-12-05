@@ -1,6 +1,9 @@
 using System;
-
+using System.Collections.Generic;
 using UnityEngine;
+using MathNet.Numerics.IntegralTransforms;
+using NumericsComplex = System.Numerics.Complex;
+
 public class mqttController : MonoBehaviour
 {
     [Tooltip("Optional name for the controller")]
@@ -39,6 +42,8 @@ public class mqttController : MonoBehaviour
    
 
     public List<int> timeSerie = new List<int>();
+
+    public BarChartUpdater barChartUpdater;
     
 
     void Awake()
@@ -57,6 +62,8 @@ public class mqttController : MonoBehaviour
     void OnEnable()
     {
         _eventSender.OnMessageArrived += OnMessageArrivedHandler;
+        timedomain = FindObjectOfType<LineChartUpdater>();
+        barChartUpdater = FindObjectOfType<BarChartUpdater>();
     
 
     }
@@ -77,14 +84,25 @@ public class mqttController : MonoBehaviour
 
             pointerValue = (float) db;
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
-            if (timeSerie.Count > 10){
+            if (timeSerie.Count >= 10){
                 timeSerie.RemoveAt(0);
             }
             timeSerie.Add(response.soundLevel);
-
-
-            timedomain = FindObjectOfType<LineChartUpdater>();
             timedomain.UpdateData(timeSerie.ToArray());
+            barChartUpdater.UpdateChart(db);
+
+            NumericsComplex[] complexes = new NumericsComplex[timeSerie.Count];
+            for (int i = 0; i < complexes.Length; i++){
+                complexes[i] = new NumericsComplex((float)timeSerie[i],0);
+            }
+            Fourier.Forward(complexes,FourierOptions.Default);
+
+            float[] magnitudes = new float[complexes.Length];
+            for (int i = 0; i < complexes.Length; i++){
+                magnitudes[i] = (float)complexes[i].Magnitude;
+            }
+
+
            
         }
     }
