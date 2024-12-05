@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XCharts.Runtime;
 
-public class BarChartUpdater : MonoBehaviour
+public class FFTUpdater : MonoBehaviour
 {
     public BarChart FFT;
     // Start is called before the first frame update

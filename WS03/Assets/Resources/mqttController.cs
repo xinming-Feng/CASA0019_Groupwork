@@ -88,6 +88,7 @@ public class mqttController : MonoBehaviour
                 timeSerie.RemoveAt(0);
             }
             timeSerie.Add(response.soundLevel);
+        
             timedomain.UpdateData(timeSerie.ToArray());
             barChartUpdater.UpdateChart(db);
 
