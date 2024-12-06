@@ -19,9 +19,9 @@ public class FFTUpdater : MonoBehaviour
         var serie = Bar.AddDefaultSerie(FFT,"FFT");
         for (int i = 0; i<values.Length; i++){
             FFT.AddData(serie.index,values[i]);
+            Debug.Log($"dkkkxcx:{values[i]}");
         }
         FFT.RefreshChart();
-
 
 
     }

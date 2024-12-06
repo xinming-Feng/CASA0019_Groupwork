@@ -8780,7 +8780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69.93529, y: 61.35961}
+  m_AnchoredPosition: {x: 0, y: 101.25}
   m_SizeDelta: {x: 54.24, y: 22.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &363802469
@@ -9633,7 +9633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38.004997, y: 0}
+  m_AnchoredPosition: {x: -33.445, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &381767684
@@ -14176,8 +14176,8 @@ RectTransform:
   - {fileID: 915024820}
   - {fileID: 1198656632}
   - {fileID: 1746403565}
-  - {fileID: 117855505}
   - {fileID: 964916058}
+  - {fileID: 117855505}
   m_Father: {fileID: 1870567056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -15594,112 +15594,7 @@ MonoBehaviour:
       - 0
       - 0
       - 0
-    m_Data:
-    - m_Index: 0
-      m_Name: 
-      m_Id: 
-      m_ParentId: 
-      m_Ignore: 0
-      m_Selected: 0
-      m_Radius: 0
-      m_State: 4
-      m_ItemStyles: []
-      m_Labels: []
-      m_LabelLines: []
-      m_Symbols: []
-      m_LineStyles: []
-      m_AreaStyles: []
-      m_TitleStyles: []
-      m_EmphasisStyles: []
-      m_BlurStyles: []
-      m_SelectStyles: []
-      m_Data:
-      - 0
-      - 37
-    - m_Index: 1
-      m_Name: 
-      m_Id: 
-      m_ParentId: 
-      m_Ignore: 0
-      m_Selected: 0
-      m_Radius: 0
-      m_State: 4
-      m_ItemStyles: []
-      m_Labels: []
-      m_LabelLines: []
-      m_Symbols: []
-      m_LineStyles: []
-      m_AreaStyles: []
-      m_TitleStyles: []
-      m_EmphasisStyles: []
-      m_BlurStyles: []
-      m_SelectStyles: []
-      m_Data:
-      - 1
-      - 84
-    - m_Index: 2
-      m_Name: 
-      m_Id: 
-      m_ParentId: 
-      m_Ignore: 0
-      m_Selected: 0
-      m_Radius: 0
-      m_State: 4
-      m_ItemStyles: []
-      m_Labels: []
-      m_LabelLines: []
-      m_Symbols: []
-      m_LineStyles: []
-      m_AreaStyles: []
-      m_TitleStyles: []
-      m_EmphasisStyles: []
-      m_BlurStyles: []
-      m_SelectStyles: []
-      m_Data:
-      - 2
-      - 65
-    - m_Index: 3
-      m_Name: 
-      m_Id: 
-      m_ParentId: 
-      m_Ignore: 0
-      m_Selected: 0
-      m_Radius: 0
-      m_State: 4
-      m_ItemStyles: []
-      m_Labels: []
-      m_LabelLines: []
-      m_Symbols: []
-      m_LineStyles: []
-      m_AreaStyles: []
-      m_TitleStyles: []
-      m_EmphasisStyles: []
-      m_BlurStyles: []
-      m_SelectStyles: []
-      m_Data:
-      - 3
-      - 25
-    - m_Index: 4
-      m_Name: 
-      m_Id: 
-      m_ParentId: 
-      m_Ignore: 0
-      m_Selected: 0
-      m_Radius: 0
-      m_State: 4
-      m_ItemStyles: []
-      m_Labels: []
-      m_LabelLines: []
-      m_Symbols: []
-      m_LineStyles: []
-      m_AreaStyles: []
-      m_TitleStyles: []
-      m_EmphasisStyles: []
-      m_BlurStyles: []
-      m_SelectStyles: []
-      m_Data:
-      - 4
-      - 73
+    m_Data: []
     m_Links: []
     m_Labels: []
     m_LabelLines: []
@@ -19863,7 +19758,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 60.01, y: 31.29}
+  m_SizeDelta: {x: 50.89, y: 31.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &770635380
 MonoBehaviour:
@@ -26678,7 +26573,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0, y: 0}
-  m_SizeDelta: {x: 56.01, y: 31.29}
+  m_SizeDelta: {x: 46.89, y: 31.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1096158478
 MonoBehaviour:
@@ -26700,7 +26595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 33%
+  m_text: 0db
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -36795,6 +36690,8 @@ MonoBehaviour:
   barChartUpdater: {fileID: 0}
   dynamicBar: {fileID: 0}
   timeSerie: 00000000
+  ringChart: {fileID: 0}
+  fFTUpdater: {fileID: 0}
 --- !u!114 &1598474510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40804,8 +40701,8 @@ RectTransform:
   - {fileID: 165973313}
   - {fileID: 395094934}
   - {fileID: 1905857193}
-  - {fileID: 528912447}
   - {fileID: 816964559}
+  - {fileID: 528912447}
   m_Father: {fileID: 899555373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -45863,6 +45760,7 @@ GameObject:
   - component: {fileID: 1918788263}
   - component: {fileID: 1918788265}
   - component: {fileID: 1918788264}
+  - component: {fileID: 1918788266}
   m_Layer: 5
   m_Name: RingChart
   m_TagString: Untagged
@@ -45898,8 +45796,8 @@ RectTransform:
   - {fileID: 1819936737}
   - {fileID: 2016965703}
   - {fileID: 491653441}
-  - {fileID: 4266710}
   - {fileID: 2055822601}
+  - {fileID: 4266710}
   m_Father: {fileID: 479382189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -46662,8 +46560,8 @@ MonoBehaviour:
       m_BlurStyles: []
       m_SelectStyles: []
       m_Data:
-      - 33
-      - 100
+      - 0
+      - 130
     m_Links: []
     m_Labels:
     - m_Show: 1
@@ -46673,7 +46571,7 @@ MonoBehaviour:
       m_Rotate: 0
       m_AutoRotate: 0
       m_Distance: 0
-      m_Formatter: '{d:f0}%'
+      m_Formatter: '{d:f0}db'
       m_NumericFormatter: 
       m_Width: 0
       m_Height: 0
@@ -46791,6 +46689,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918788262}
   m_CullTransparentMesh: 1
+--- !u!114 &1918788266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918788262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af006cfaa0d41304c8c8ddf2ff8a5227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RingChartData: {fileID: 0}
 --- !u!1 &1922969561
 GameObject:
   m_ObjectHideFlags: 0

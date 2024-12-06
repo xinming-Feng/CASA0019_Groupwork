@@ -45,6 +45,10 @@ public class mqttController : MonoBehaviour
     public DynamicBar dynamicBar;
 
     public List<int> timeSerie = new List<int>();
+
+    public RingChartUpdater ringChart;
+
+    public FFTUpdater fFTUpdater;
     
 
     void Awake()
@@ -65,6 +69,8 @@ public class mqttController : MonoBehaviour
         _eventSender.OnMessageArrived += OnMessageArrivedHandler;
         timeDomain = FindObjectOfType<LineChartUpdater>();
         dynamicBar = FindObjectOfType<DynamicBar>();
+        ringChart = FindObjectOfType<RingChartUpdater>();
+        fFTUpdater = FindObjectOfType<FFTUpdater>();
     }
 
     private void OnDisable()
@@ -89,9 +95,17 @@ public class mqttController : MonoBehaviour
             }
 
             pointerValue = (float) db;
+
+            List<double> ringvalue = new List<double>{
+                (double)pointerValue*1.3,
+                130
+
+            };
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
             timeDomain.AppendData(response.soundLevel);
             dynamicBar.UpdateBar(pointerValue);
+            ringChart.UpdateRing(ringvalue);
+
 
             if (timeSerie.Count >= 10){
                 timeSerie.RemoveAt(0);
@@ -108,6 +122,7 @@ public class mqttController : MonoBehaviour
             for (int i = 0; i < complexes.Length; i++){
                 magnitudes[i] = (float)complexes[i].Magnitude;
             }
+            fFTUpdater.UpdateChart(magnitudes);
 
 
            
