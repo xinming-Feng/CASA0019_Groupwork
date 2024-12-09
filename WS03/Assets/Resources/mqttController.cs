@@ -4,6 +4,7 @@ using UnityEngine;
 using MathNet.Numerics.IntegralTransforms;
 using NumericsComplex = System.Numerics.Complex;
 using XCharts.Runtime;
+using TMPro;
 
 public class mqttController : MonoBehaviour
 {
@@ -49,6 +50,13 @@ public class mqttController : MonoBehaviour
     public RingChartUpdater ringChart;
 
     public FFTUpdater fFTUpdater;
+
+    public int maxDb = Int32.MinValue;
+    public int minDb = Int32.MaxValue;
+
+    public TextMeshProUGUI maxText;
+    public TextMeshProUGUI minText;
+    public TextMeshProUGUI timeText;
     
 
     void Awake()
@@ -101,13 +109,27 @@ public class mqttController : MonoBehaviour
                 130
 
             };
+
+            if (db > maxDb)
+            {
+                maxDb = db;
+                maxText.text = $"MAX: {maxDb} dB";
+            }
+            if (db < minDb)
+            {
+                maxDb = db;
+                minText.text = $"MIN: {minDb} dB";   
+            }
+            timeText.text = $"Time: {DateTime.Now} ";   
+
+
             Debug.Log("Event Fired. The message, from Object " + nameController + " is = " + pointerValue);
             timeDomain.AppendData(response.soundLevel);
             dynamicBar.UpdateBar(pointerValue);
             ringChart.UpdateRing(ringvalue);
 
 
-            if (timeSerie.Count >= 10){
+            if (timeSerie.Count >= 1000){
                 timeSerie.RemoveAt(0);
             }
             timeSerie.Add(response.soundLevel);
@@ -123,6 +145,8 @@ public class mqttController : MonoBehaviour
                 magnitudes[i] = (float)complexes[i].Magnitude;
             }
             fFTUpdater.UpdateChart(magnitudes);
+
+           
 
 
            
