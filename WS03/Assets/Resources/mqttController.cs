@@ -117,7 +117,7 @@ public class mqttController : MonoBehaviour
             }
             if (db < minDb)
             {
-                maxDb = db;
+                minDb = db;
                 minText.text = $"MIN: {minDb} dB";   
             }
             timeText.text = $"Time: {DateTime.Now} ";   
