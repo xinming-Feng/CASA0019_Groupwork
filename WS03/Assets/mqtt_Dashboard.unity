@@ -1662,7 +1662,7 @@ MonoBehaviour:
     RequiredFingerCount: 1
     RequiredMouseButtons: 0
     RequiredSelectable: {fileID: 149239169}
-  _camera: {fileID: 0}
+  _camera: {fileID: 1652475983}
   sensitivity: 1
   damping: -1
   inertia: 0
