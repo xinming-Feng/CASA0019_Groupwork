@@ -12,3 +12,5 @@ The digital twin of the device will provide extra information, and it will provi
 Open the app and scan the QR code on the physical device. The dashboard will appear directly above the QR code, and can observe the changes of each data through three-finger zooming.
 
 ![Image](https://github.com/xinming-Feng/CASA0019_Groupwork/blob/main/images/physical.jpg?raw=true)
+
+[Description Page](https://xinming-Feng.github.io/CASA0019_Groupwork/index.html)
