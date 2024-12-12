@@ -1,0 +1,139 @@
+html {
+    background: linear-gradient(135deg, #FFEDD5, #FFD1DC, #FF9A9E);
+    background-image: url(https://s3.postimg.org/s1n3ji1ur/paper_fibers_2_X.png);
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.poster-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+background: linear-gradient(90deg, rgba(208,65,202,0.7203256302521008) 0%, rgba(223,96,173,0.7567401960784313) 50%, rgba(85,207,232,0.6362920168067228) 100%);
+    background-size: 300% 300%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    animation: fadeBackground 2s infinite ease-in-out; 
+    color: #333333; 
+}
+
+
+@keyframes fadeBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+.poster-container {
+    animation: fadeIn 1s ease-out, fadeBackground 6s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.poster-container p, .poster-container h1, .poster-container h2 {
+    margin: 10px 0;
+    color: #333333; 
+    font-family: 'Arial', sans-serif;
+}
+
+.poster-header {
+    background: linear-gradient(135deg, #ff8c42, #ff2e63);
+    color: #fff;
+    padding: 20px 0;
+    border-radius: 15px 15px 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.poster-body {
+    padding: 30px;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+.poster-section {
+    margin: 20px 0;
+    text-align: left;
+    border-radius: 0.5em;
+    color: rgba(55, 21, 21, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(1em);
+    overflow: hidden;
+}
+.line {
+  width: 100%;
+  height: 4px;
+  background-color: #5CF5CB;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+.poster-section strong {
+    color: #ff2e63;
+}
+
+.poster-image {
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
+    height: auto;
+}
+
+.poster-video {
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: auto;
+}
+
+.poster-footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
+
+.qr-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.qr-code {
+    margin-right: 20px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-description {
+    font-size: 16px;
+    color: #555;
+}
+
