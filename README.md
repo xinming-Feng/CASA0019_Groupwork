@@ -67,7 +67,7 @@ o **Setup Process**:
 The hardware design for this project integrates various components to create a functional and interactive system for noise level detection and visualization.
 
 #### **Hardware Components**
-
+![prototype](/images/prototpye.jpg)
 **Microcontroller (ESP8266):**  
 The ESP8266 microcontroller is central to the device’s operation, handling data collection from sensors, processing, and transmitting it to external servers. Its built-in WiFi module enables seamless data upload via the MQTT protocol, allowing real-time monitoring and analysis.
 
@@ -99,17 +99,21 @@ The code’s modular design facilitates clear data flow and easy debugging. For 
 
 This hardware and software integration provides an interactive and visually engaging tool for noise monitoring and representation, with possibilities for future enhancements in usability and functionality.).
 
-### **2.3 Digital Device Design (Approximately 350 words)**
+Picture below shows the MQTT works.
+
+![mqtt](/images/mqtt.jpg) 
+### **2.3 Digital Device Design**
 
 The digital device for the Noise Level Monitor project was developed using Unity(AR Mobile project) by creating a visually engaging and interactive dashboard and adding function into AR. 
 
 #### **Dashboard interface design and implement**
 
-The dashboard consists of four components, each implemented using the **XCharts** library. Below is the detailed information of the dashboard:
+The dashboard consists of four components, each implemented using the **XCharts** library. Below is the image and detailed information of the dashboard:
+![mqtt](/images/dashboard.png) 
 
 ##### **1\. Top-Left: Topic Message and Ring Chart**
 
-**Slogan with emoji:** There is a slogan *"Know your noise. Protect your ears 😀"*  at the top-left section of the dashboard. This was implemented using the TextMeshPro element in Unity, and an emoji (`😀`) is added in the message to increase aesthetic appeal, which is implemented with **Sprite Assets**.
+**Slogan with emoji:** There is a slogan, which was implemented using the TextMeshPro element in Unity. An emoji (`😀`) is added in the message to increase aesthetic appeal, which is implemented with **Sprite Assets**.
 
 **The ring chart:** it directly displays the current decibel value at center with on the left.
 
