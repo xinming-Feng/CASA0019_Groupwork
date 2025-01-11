@@ -80,6 +80,8 @@ The LED strip visually represents noise intensity using a color gradient: green 
 **LCD TFT Screen:**  
 The 2.4-inch LCD TFT screen displays a real-time time-domain graph of noise, offering a visual representation of sound amplitude variations. 
 
+The picture shown below is the schematic
+![schematic](/images/schematic.jpg)
 **Programming Analysis**
 
 The software implementation leverages several libraries to streamline functionality:
@@ -99,7 +101,7 @@ The code’s modular design facilitates clear data flow and easy debugging. For 
 
 This hardware and software integration provides an interactive and visually engaging tool for noise monitoring and representation, with possibilities for future enhancements in usability and functionality.).
 
-Picture below shows the MQTT works.
+The picture below shows how the MQTT works.
 
 ![mqtt](/images/mqtt.jpg) 
 ### **2.3 Digital Device Design**
@@ -219,8 +221,6 @@ The Noise Level Monitor project successfully combines the physical devices, digi
 
 
 ## **7\. Appendix**
-
-
 
 ### **1. Key code snippets**
 
