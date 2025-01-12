@@ -22,45 +22,53 @@ Wenhao Yang
 
 ## **1\. Introduction**
 
-· **Answer the question “Why?”**
+### **1.1 Background**
 
-### **Background**
+Noise pollution is a pervasive environmental issue with significant adverse effects on human health and well-being. Chronic exposure to elevated noise levels has been linked to various health problems, including cardiovascular diseases, sleep disturbances, and increased stress levels. A comprehensive review in the *European Journal of Public Health* highlights the urgent need to address environmental noise as a public health concern.([Environmental noise exposure and health outcomes: an umbrella review of systematic reviews and meta-analysis | European Journal of Public Health | Oxford Academic](https://academic.oup.com/eurpub/article/33/4/725/7111337?utm_source=chatgpt.com&login=false))
 
-§ The current state of noise pollution and its impact on public health and quality of life.
+Real-time noise monitoring devices are essential tools in mitigating these health risks. They provide accurate, immediate data on noise levels, enabling timely interventions to reduce exposure. The development of embedded real-time environmental noise monitoring devices has been discussed in recent research, emphasizing their role in long-term noise monitoring and information processing.([The design of embedded environmental noise real-time monitoring device](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12744/2688879/The-design-of-embedded-environmental-noise-real-time-monitoring-device/10.1117/12.2688879.short?utm_source=chatgpt.com))
 
-§ Why is a real-time noise monitoring device necessary?
+Implementing such devices can lead to better-informed public health policies and increased community awareness, ultimately improving quality of life in noise-affected areas.
 
-### **Objectives**
+### **1.2 Objectives**
 
-§ What specific problems does the project aim to solve? (e.g., real-time monitoring of environmental noise).
+The primary goal of this project is to develop a device capable of real-time monitoring and visualization of environmental noise levels. This includes accurately measuring noise intensity, presenting data in a user-friendly format, and raising awareness about noise pollution's impacts.
 
-### **Significance**
+### **1.3 Significance**
 
-§ Who are the target users? (e.g., city dwellers, industrial workers).
-
-§ How does the project benefit them? (e.g., raising awareness of noise exposure).
+The target users include city dwellers, and anyone exposed to potentially harmful noise levels. By offering clear, real-time data on noise levels, the project enables users to better understand their sound environment, promoting healthier living conditions and encouraging protective measures against noise exposure.
 
 ---
 
 ## **2\. Design and Development Process**
 
-### **2.1 Preparation and Tools**
+### **2.1 Preparation and Tools** · 
 
-#### **Materials and Tools**:
+**Materials and Tools**:
 
-§ **Modeling tools**: Blender for modeling the Christmas tree and house, Bambu Studio for 3D printing.
+**Modeling tools**: Blender for modeling the Christmas tree and house, Bambu Studio for 3D printing.
 
-§ **Laser cutting**: Laser-cut wood boards for the Christmas tree.
+![img](/images/tuzhi.png)
 
-§ **3D printing**: Techniques and settings used for the house model.
+![img](/images/xiaowu.png)
 
-§ **Programming tools**: Arduino IDE, libraries (e.g., Adafruit\_NeoPixel, WiFi, PubSubClient).
+**Laser cutting**: Laser-cut wood boards for the Christmas tree.
 
-o **Setup Process**:
+**3D printing**: Techniques and settings used for the house model.
 
-§ Briefly describe how the physical and digital environments were prepared.
+![img](/images/physical.jpg)
 
-· 
+#### **Programming tools**: 
+
+Arduino IDE, Unity,
+
+C#,library(MathNet.Numerics.IntegralTransforms,XCharts.Runtime,TMPro),VSCode
+
+#### **Setup Process**:
+
+The physical device is mainly composed of an LCD display and a Christmas tree wrapped with led lights. The led lights will light up different numbers of pixels and change color with the change of decibel size, and the LCD screen will display the time domain map of real-time environmental sound.
+
+The digital twin part built in unity hub, the ar function is added, which can be tracked and displayed according to the printed picture set on the physical device. After scanning the picture, the virtual dashboard will be displayed.
 
 ### **2.2 Hardware Device Design**
 
@@ -81,7 +89,9 @@ The LED strip visually represents noise intensity using a color gradient: green 
 The 2.4-inch LCD TFT screen displays a real-time time-domain graph of noise, offering a visual representation of sound amplitude variations. 
 
 The picture shown below is the schematic
+
 ![schematic](/images/schematic.jpg)
+
 **Programming Analysis**
 
 The software implementation leverages several libraries to streamline functionality:
@@ -110,8 +120,9 @@ The digital device for the Noise Level Monitor project was developed using Unity
 
 #### **Dashboard interface design and implement**
 
-The dashboard consists of four components, each implemented using the **XCharts** library. Below is the image and detailed information of the dashboard:
-![mqtt](/images/dashboard.png) 
+The dashboard consists of four components, each implemented using the [**Xcharts**](https://www.bing.com/search?q=xcharts+unity&cvid=0f956629712e480aa04bdcd274ce2a50&gs_lcrp=EgRlZGdlKgYIAxAAGEAyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgYICBAAGEDSAQg1ODI1ajBqMagCALACAA&FORM=ANAB01&adppc=EdgeStart&PC=HCTS) library. Below is the image and detailed information of the dashboard:
+
+![mqtt](/images/dashboard.png )
 
 ##### **1\. Top-Left: Topic Message and Ring Chart**
 
@@ -145,13 +156,21 @@ Central part is a circular gauge with a pointer, which can dynamically adjust to
 
 #### **Data Transmission and Synchronization**
 
-##### **MQTT Integration in Unity**
+**MQTT publish**:
 
-To ensure real-time synchronization between the physical device and the digital dashboard, the Noise Level Monitor project employs MQTT as the communication protocol. Based on the tutor in [Workshop 06](https://workshops.cetools.org/codelabs/casa0019-06-unity-ar-pd/index.html#2), the unity subscribes to the topic that physical device publishes to an MQTT broker hosted at `mqtt.cetools.org.to` receive the decibel data in real-time.
+To ensure real-time synchronization between the physical device and the digital dashboard, the Noise Level Monitor project employs MQTT as the communication protocol. Based on the tutor in [Workshop 06](https://workshops.cetools.org/codelabs/casa0019-06-unity-ar-pd/index.html#2), the unity subscribes to the topic that physical device publishes to an MQTT broker hosted at mqtt.cetools.org.to receive the decibel data in real-time.
 
-##### **Data Synchronization**
+**Data transmission：**
 
-Extracted decibel data is dynamically fed into the dashboard components, such as the ring chart, bar graph, and time-domain plot. The code is provided in the appendix.
+The information transmission of the project mainly relies on mqtt. When the amplitude information is published at mqtt.cetools.org, subscribe through mqttManager.cs. After subscribe information, amplitude information is controlled through mqttController.cs to various tables in the dashboard. The dial in this project is divided into a dynamic line chart to record the amplitude, a ring chart to record the actual decibel count, a beating "column" to assist the display of decibels and a beating bar chart to show the FFT. Since the information of the physical device published in this project is only the amplitude value, it is necessary to carry out a series of conversion of the amplitude to decibels and obtain the corresponding FFT dynamic image after Fourier transformation. The specific conversion method is as follows:
+
+![img](/images/daima.png)
+
+The sliding window (timeSerie) of the project is 1000 in length. After receiving the SoundLevel of publish, it will be converted into negative number form to prepare for Fourier transform (FFT). Fourier.Forward(complexes, FourierOptions.Default) performs FFT transformation to convert time domain signals into frequency domain signals. The transformed complexes array stores the amplitude and phase information of the frequency components. The complexes[i].magnitude are used to calculate the amplitude of the frequency. Finally, the data in magnitudes[i ] is used to plot the dynamics of the FFT.
+
+![img](/images/daima2.png)
+
+The real-time sound amplitude displayed by the dynamic line chart. Because the sound of the table needs to be displayed dynamically, a buffer should be set when the data is passed in, and the data should be deleted while the data is passed in. In this way, the dynamic balance of the overall line chart can be realized, and the overall dashboard will not be stuck due to stack overflow.
 
 ##### **Augmented Reality (AR) Integration**
 
@@ -191,6 +210,8 @@ The Noise Level Monitor project successfully combines the physical devices, digi
 2. **Expand Dashboard Content:** A reset button can be added to “additional information part” to enable measuring maximum decibel repeatedly.   
 3. **Add a Decibel Alert System**: A maximum decibel threshold can be set in the dashboard to achieve an alert system. When the noise level exceeds this threshold, a pop-up alert or notification would appear to remind users.   
 4. **Complete the Digital Twin:** Virtual models of the physical components such as Christmas tree can be added into the Unity AR module to act as a digital twin.
+5. **Avoid repeat components:** There is too much repeated information in the dashboard, and the decibel value is applied to three different charts, which makes the information too messy. In future work, the charts in the dashboard can be condensed, or more information can be added.
+6. **Dynamic Charts:** Because most of the built-in functions of Xchart do not support the display of dynamic charts, during dynamic data transmission, the time domain chart (dynamic line chart) will have a small section of messy code at the beginning of data input, and the messy points will disappear when the dynamic deletion is carried out after data input. At the same time, because there is no filter set in the FFT chart, a certain section of frequency signal cannot be collected in daily life, resulting in the display of dynamic bar chart is not very obvious. In future work, we might consider building in other plotting apis and using filters in the conversion and presentation of FFTS to make them more visible.
 
 ---
 
